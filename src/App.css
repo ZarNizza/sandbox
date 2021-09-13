@@ -1,0 +1,9 @@
+.flexOuter {
+    display: flex;
+    width: 95vw;
+    height: 95vh;
+}
+
+.flexInner {
+    margin: auto;
+}
