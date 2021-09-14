@@ -1,4 +1,5 @@
 // import { useState } from "react";
+import './App.css';
 
 export function GitPromise() {
   let names = ["ZarNizza"];
@@ -20,7 +21,7 @@ export function GitPromise() {
     // чтобы прочитать содержимое каждого
     .then((responses) => Promise.allSettled(responses.map((r) => r.json())))
     // все JSON-ответы обработаны, users - массив с результатами
-    .then((repos) => repos.forEach((repo) => console.log("userRepos: " + repo)))
+    .then((repoArrs) => repoArrs.forEach((repoArr) => alert("Repo: " + JSON.stringify(repoArr.value[0].name))))
     .catch(alert);
 // ------------------------------------- WTF?????? need to extract repos from Promise/JSON 
   console.log("repoList", repoList);
