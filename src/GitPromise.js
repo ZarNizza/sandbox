@@ -18,9 +18,9 @@ export function GitPromise() {
     })
     // преобразовать массив ответов response в response.json(),
     // чтобы прочитать содержимое каждого
-    .then((responses) => Promise.all(responses.map((r) => r.json())))
+    .then((responses) => Promise.allSettled(responses.map((r) => r.json())))
     // все JSON-ответы обработаны, users - массив с результатами
-    .then((users) => users.forEach((user) => console.log("userRepos: " + user)))
+    .then((repos) => repos.forEach((repo) => console.log("userRepos: " + repo)))
     .catch(alert);
 // ------------------------------------- WTF?????? need to extract repos from Promise/JSON 
   console.log("repoList", repoList);
