@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {App} from './App';
+// import {App} from './App';
+import {GitPromise} from './GitPromise';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <GitPromise />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,42 +1,33 @@
 // import { useState } from "react";
 
 export function GitPromise() {
-  
-  async function getUsers(names) {
-    let jobs = [];
-  
-    for(let name of names) {
-      let job = fetch(`https://api.github.com/users/${name}/repos`).then(
-        successResponse => {
-          if (successResponse.status !== 200) {
-            return null;
-          } else {
-            return successResponse.text();
-          }
-        },
-        failResponse => {
-          return null;
-        }
-      );
-      jobs.push(job);
-    }
-  
-    let results = await Promise.allSettled(jobs);
-  
-    return results;
-  }
-  
-  const uName = ['ZarNizza'];
-  let repoList = getUsers(uName);
-  let a =[];
-  a.push(repoList);
-  console.log("GU ", typeof(repoList), typeof(a)); // GU  object object
-  console.log("rList = ", repoList); // rList = Promise { <state>: "pending" }
-  console.log("a = ", a);  // a = Array [ Promise { "pending" } ]
-  
+  let names = ["ZarNizza"];
+
+  let requests = names.map((name) =>
+    fetch(`https://api.github.com/users/${name}/repos`)
+  );
+
+  let repoList = Promise.all(requests)
+    .then((responses) => {
+      // все промисы успешно завершены
+      for (let response of responses) {
+        console.log(`${response.url}: ${response.status}`); // покажет 200 для каждой ссылки
+      }
+
+      return responses;
+    })
+    // преобразовать массив ответов response в response.json(),
+    // чтобы прочитать содержимое каждого
+    .then((responses) => Promise.all(responses.map((r) => r.json())))
+    // все JSON-ответы обработаны, users - массив с результатами
+    .then((users) => users.forEach((user) => console.log("userRepos: " + user)))
+    .catch(alert);
+// ------------------------------------- WTF?????? need to extract repos from Promise/JSON 
+  console.log("repoList", repoList);
+
   return (
     <div className="flexOuter">
-      <div className="flexInner">{repoList}</div>
+      <div className="flexInner">Good!</div>
     </div>
   );
 }
