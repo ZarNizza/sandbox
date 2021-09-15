@@ -2,6 +2,22 @@ import { useState, useRef } from "react";
 import "./App.css";
 import { getRepos } from "./getRepos";
 
+const Wrapper = (props) => (
+  <div>
+    <input ref={props.buttonRef} />
+    <button
+      onClick={() => {
+        props.setUserName(props.buttonRef.current.value);
+        props.showRepos();
+      }}
+    >
+      Show Repos
+    </button>
+    {props.children}
+  </div>
+);
+
+
 export function GitPromise() {
   const buttonRef = useRef(123);
   const [repos, setRepos] = useState([]);
@@ -20,45 +36,32 @@ export function GitPromise() {
       });
   }
 
-  const Wrapper = (props) => (
-    <div>
-      <input ref={buttonRef} />
-      <button
-        onClick={() => {
-          setUserName(buttonRef.current.value);
-          showRepos();
-        }}
-      >
-        Show Repos
-      </button>
-      {props.children}
-    </div>
-  );
+
 
   if (/^\s*$/.test(userName))
     return (
-      <Wrapper>
+      <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos} >
         <p>Enter UserName</p>
       </Wrapper>
     );
 
   if (errMessage)
     return (
-      <Wrapper>
+      <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos} >
         <p>{errMessage}</p>
       </Wrapper>
     );
 
   if (repos.length === 0)
     return (
-      <Wrapper>
+      <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos} >
         <p>{`User "${userName}" has no public Repos`}</p>
       </Wrapper>
     );
 
   return (
     // при User=Undefined получаем и сообщение и ошибку одновременно
-    <Wrapper>
+    <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos}  >
       <ul>
         {repos.map((repo) => (
           <li key={repo.name}>{repo.name}</li>
