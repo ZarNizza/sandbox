@@ -1,17 +1,19 @@
 // import { useState } from "react";
-import { useState } from "react";
 import "./App.css";
 
 export function GitPromise() {
   let names = ["ZarNizza"];
-  const [rl, setRL] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  let rl = [];
+  let isLoading = false;
+  //  const [rl, setRL] = useState(null);
+  //  const [isLoading, setIsLoading] = useState(false);
   let requests = names.map((name) =>
     fetch(`https://api.github.com/users/${name}/repos`)
   );
 
-function getRepoList(requests) {
-    setIsLoading(true);
+  function getRepoList(requests) {
+    isLoading = true;
+    //    setIsLoading(true);
     Promise.all(requests)
       .then((responses) => {
         for (let response of responses) {
@@ -28,15 +30,18 @@ function getRepoList(requests) {
           )
         );
         console.log("func getRL: ", repoItems);
-        setRL(repoItems);
-        setIsLoading(false);
+        rl = repoItems;
+        isLoading = false;
+
+        //        setRL(repoItems);
+        //        setIsLoading(false);
         return repoItems;
       })
       .catch(alert);
-    }
-    
-    let repoList = getRepoList(requests);
-    console.log("RL:" + rl);
+  }
+
+  let repoList = getRepoList(requests);
+  console.log("RL:" + rl);
 
   return (
     <div className="flexOuter">
@@ -44,7 +49,9 @@ function getRepoList(requests) {
         Good!
         <br />- - - - -<br />
         {isLoading && <p>Загружаю...</p>}
-        {Array.isArray(rl) && rl}
+        {rl.length > 0 && rl}
+        <br />- - - - -<br />
+        {typeof(repoList)}
       </div>
     </div>
   );
