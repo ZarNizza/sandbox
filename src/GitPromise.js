@@ -1,42 +1,72 @@
-// import { useState } from "react";
+import { useState, useRef } from "react";
+import "./App.css";
+import { getRepos } from "./getRepos";
+
+const Wrapper = (props) => (
+  <div>
+    <input ref={props.buttonRef} />
+    <button
+      onClick={() => {
+        props.setUserName(props.buttonRef.current.value);
+        props.showRepos();
+      }}
+    >
+      Show Repos
+    </button>
+    {props.children}
+  </div>
+);
+
 
 export function GitPromise() {
-  
-  async function getUsers(names) {
-    let jobs = [];
-  
-    for(let name of names) {
-      let job = fetch(`https://api.github.com/users/${name}/repos`).then(
-        successResponse => {
-          if (successResponse.status !== 200) {
-            return null;
-          } else {
-            return successResponse.text();
-          }
-        },
-        failResponse => {
-          return null;
-        }
-      );
-      jobs.push(job);
-    }
-  
-    let results = await Promise.allSettled(jobs);
-  
-    return results;
+  const buttonRef = useRef(123);
+  const [repos, setRepos] = useState([]);
+  const [errMessage, setErrMessage] = useState(null);
+  const [userName, setUserName] = useState("");
+  function showRepos() {
+    const reposPromise = getRepos(buttonRef.current.value);
+    reposPromise
+      .then((repos) => {
+        setRepos(repos);
+        setErrMessage(null);
+      })
+      .catch((err) => {
+        setErrMessage(err.message);
+        setRepos([]);
+      });
   }
-  
-  const uName = ['ZarNizza'];
-  let repoList = getUsers(uName);
-  let a =[];
-  a.push(repoList);
-  console.log("GU ", typeof(repoList), typeof(a)); // GU  object object
-  console.log("rList = ", repoList); // rList = Promise { <state>: "pending" }
-  console.log("a = ", a);  // a = Array [ Promise { "pending" } ]
-  
+
+
+
+  if (/^\s*$/.test(userName))
+    return (
+      <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos} >
+        <p>Enter UserName</p>
+      </Wrapper>
+    );
+
+  if (errMessage)
+    return (
+      <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos} >
+        <p>{errMessage}</p>
+      </Wrapper>
+    );
+
+  if (repos.length === 0)
+    return (
+      <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos} >
+        <p>{`User "${userName}" has no public Repos`}</p>
+      </Wrapper>
+    );
+
   return (
-    <div className="flexOuter">
-      <div className="flexInner">{repoList}</div>
-    </div>
+    // при User=Undefined получаем и сообщение и ошибку одновременно
+    <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos}  >
+      <ul>
+        {repos.map((repo) => (
+          <li key={repo.name}>{repo.name}</li>
+        ))}
+      </ul>
+    </Wrapper>
   );
 }
