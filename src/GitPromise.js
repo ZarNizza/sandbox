@@ -1,58 +1,31 @@
-// import { useState } from "react";
+import { useState } from "react";
+import { useRef } from "react";
 import "./App.css";
+import { getRepos } from "./getRepos";
+import react from "react";
 
 export function GitPromise() {
-  let names = ["ZarNizza"];
-  let rl = [];
-  let isLoading = false;
-  //  const [rl, setRL] = useState(null);
-  //  const [isLoading, setIsLoading] = useState(false);
-  let requests = names.map((name) =>
-    fetch(`https://api.github.com/users/${name}/repos`)
-  );
-
-  function getRepoList(requests) {
-    isLoading = true;
-    //    setIsLoading(true);
-    Promise.all(requests)
-      .then((responses) => {
-        for (let response of responses) {
-          console.log(`${response.url}: ${response.status}`); // покажет 200 для каждой ссылки
-        }
-        return responses;
-      })
-      .then((responses) => Promise.allSettled(responses.map((r) => r.json())))
-      .then(function rItem(repoArrs) {
-        let repoItems = [];
-        repoArrs.forEach((repoArr) =>
-          repoArr.value.map((repo) =>
-            repoItems.push(JSON.stringify(repo.full_name))
-          )
-        );
-        console.log("func getRL: ", repoItems);
-        rl = repoItems;
-        isLoading = false;
-
-        //        setRL(repoItems);
-        //        setIsLoading(false);
-        return repoItems;
-      })
-      .catch(alert);
+  const buttonRef = useRef(123);
+  const [repos, setRepos] = useState([]);
+  const [err, setErr] = useState(false);
+  function showRepos() {
+    const reposPromise = getRepos(buttonRef.current.value);
+    reposPromise.then((repos) => setRepos(repos))
+    .catch(()=>setErr(true));
   }
 
-  let repoList = getRepoList(requests);
-  console.log("RL:" + rl);
-
   return (
-    <div className="flexOuter">
-      <div className="flexInner">
-        Good!
-        <br />- - - - -<br />
-        {isLoading && <p>Загружаю...</p>}
-        {rl.length > 0 && rl}
-        <br />- - - - -<br />
-        {typeof(repoList)}
-      </div>
+    <div>
+      <input ref={buttonRef} />
+      <button onClick={showRepos}>Show Repos</button>
+      {repos.length > 0 && (
+        <ul>
+          {repos.map((repo) => (
+            <li key={repo}>{repo}</li>
+          ))}
+        </ul>
+      )}
+      {err && <p>ERROR!!!</p>}
     </div>
   );
 }
