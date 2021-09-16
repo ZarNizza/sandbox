@@ -23,9 +23,10 @@ export function GitPromise() {
   const [repos, setRepos] = useState([]);
   const [errMessage, setErrMessage] = useState(null);
   const [userName, setUserName] = useState("");
+  const [fetching, setFetching] = useState(false);
 
   function showRepos() {
-    const reposPromise = getRepos(buttonRef.current.value.trim());
+    const reposPromise = getRepos(buttonRef.current.value.trim(), setFetching);
     reposPromise
       .then((repos) => {
         setRepos(repos);
@@ -53,7 +54,7 @@ export function GitPromise() {
       </Wrapper>
     );
 
-  if (!errMessage && repos.length === 0)
+  if (!fetching && repos.length === 0)
     return (
       <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos} >
         <p>{`User "${userName}" has no public Repos`}</p>
