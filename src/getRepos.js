@@ -5,8 +5,8 @@ export function getRepos(username) {
   return fetch(gitURL)
     .then((res) => {
       console.log("res: ", res);
-      if (!res.status === 404)  throw new Error("! GitHub User not found");
-      if (!res.ok) throw new Error("! GitHub request Error");
+      if (!res.status === 404)  throw new Error("! GitHub User not found (err 404)");
+      if (!res.ok) throw new Error("! GitHub request Error (status not OK)");
       return res.json();
     })
     .then((jsonRes) => {

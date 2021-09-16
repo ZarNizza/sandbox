@@ -7,7 +7,7 @@ const Wrapper = (props) => (
     <input ref={props.buttonRef} />
     <button
       onClick={() => {
-        props.setUserName(props.buttonRef.current.value);
+        props.setUserName(props.buttonRef.current.value.trim());
         props.showRepos();
       }}
     >
@@ -23,8 +23,9 @@ export function GitPromise() {
   const [repos, setRepos] = useState([]);
   const [errMessage, setErrMessage] = useState(null);
   const [userName, setUserName] = useState("");
+
   function showRepos() {
-    const reposPromise = getRepos(buttonRef.current.value);
+    const reposPromise = getRepos(buttonRef.current.value.trim());
     reposPromise
       .then((repos) => {
         setRepos(repos);
@@ -52,7 +53,7 @@ export function GitPromise() {
       </Wrapper>
     );
 
-  if (repos.length === 0)
+  if (!errMessage && repos.length === 0)
     return (
       <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos} >
         <p>{`User "${userName}" has no public Repos`}</p>
@@ -60,7 +61,6 @@ export function GitPromise() {
     );
 
   return (
-    // при User=Undefined получаем и сообщение и ошибку одновременно
     <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos}  >
       <ul>
         {repos.map((repo) => (
