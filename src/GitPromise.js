@@ -65,7 +65,7 @@ export function GitPromise() {
     <Wrapper buttonRef={buttonRef} setUserName={setUserName} showRepos={showRepos}  >
       <ul>
         {repos.map((repo) => (
-          <li key={repo.name}>{repo.name}</li>
+          <li key={repo.name}><a href={repo.url}>{repo.name}</a></li>
         ))}
       </ul>
     </Wrapper>
