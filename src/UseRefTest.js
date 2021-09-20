@@ -1,15 +1,22 @@
-import {useRef} from "react";
+import { useRef } from "react";
 
 export function UseRefTest() {
-    const inputEl = useRef(null);
-    const onButtonClick = () => {
-      // `current` points to the mounted text input element
-      inputEl.current.focus();
-    };
-    return (
-      <>
-        <input ref={inputEl} type="text" />
-        <button onClick={onButtonClick}>Focus the input</button>
-      </>
-    );
+  const myRef = useRef(null);
+  const my2Ref = useRef(null);
+  const setFosusHere = () => {
+    myRef.current.focus();
   }
+  const setFosus2Here = () => {
+    my2Ref.current.focus();
+  }
+  return (
+    <>
+      <input ref={myRef} /> &nbsp;
+      <input ref={my2Ref} />
+      <br/>
+      <br/>
+      <button onClick={setFosusHere}>let's set Focus on 1st</button> &nbsp;
+      <button onClick={setFosus2Here}>let's set Focus on 2nd</button>
+    </>
+  );
+}
