@@ -5,15 +5,19 @@ import "./index.css";
 // import {GitPromise} from './GitPromise';
 // import { UseRefTest } from './UseRefTest';
 // import {UseStateTst} from './UseStateTest';
-import { FunctionUseState, ClassThisState } from "./UseEffectTest";
+// import { FunctionUseState, ClassThisState } from "./UseEffectTest";
+import {UseReducerTest, UseReducerTest2} from "./UseReducerTest";
+
 ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
     {/* <GitPromise /> */}
     {/* <UseRefTest /> */}
     {/* <UseStateTst /> */}
-    <FunctionUseState />
-    <ClassThisState />
+    {/* <FunctionUseState />
+    <ClassThisState /> */}
+    <UseReducerTest />
+    <UseReducerTest2 />
   </React.StrictMode>,
   document.getElementById("root")
 );
