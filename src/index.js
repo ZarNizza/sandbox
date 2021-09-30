@@ -11,8 +11,8 @@ import { UseReduserCounter } from "./UseReduserCounter";
 
 ReactDOM.render(
   <React.StrictMode>
-    <div style={{ height: "100vh",  display: "flex" }}>
-      <div style={{margin: "auto" }}>
+    <div className="flexcontainer">
+      <div className="flexinner">
         {/* <App /> */}
         {/* <GitPromise /> */}
         {/* <UseRefTest /> */}
