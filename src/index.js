@@ -6,18 +6,22 @@ import "./index.css";
 // import { UseRefTest } from './UseRefTest';
 // import {UseStateTst} from './UseStateTest';
 // import { FunctionUseState, ClassThisState } from "./UseEffectTest";
-import {UseReducerTest, UseReducerTest2} from "./UseReducerTest";
+//import {UseReducerTest, UseReducerTest2} from "./UseReducerTest";
+import { UseReduserCounter } from "./UseReduserCounter";
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    {/* <GitPromise /> */}
-    {/* <UseRefTest /> */}
-    {/* <UseStateTst /> */}
-    {/* <FunctionUseState />
-    <ClassThisState /> */}
-    <UseReducerTest />
-    <UseReducerTest2 />
+    <div style={{ height: "100vh",  display: "flex" }}>
+      <div style={{margin: "auto" }}>
+        {/* <App /> */}
+        {/* <GitPromise /> */}
+        {/* <UseRefTest /> */}
+        {/* <UseStateTst /> */}
+        {/* <FunctionUseState /><ClassThisState /> */}
+        {/* <UseReducerTest /><UseReducerTest2 /> */}
+        <UseReduserCounter />
+      </div>
+    </div>
   </React.StrictMode>,
   document.getElementById("root")
 );
