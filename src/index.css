@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  min-width: 70px;
+  min-height: 30px;
+  margin: 10px;
+}
+
+button:hover, a:hover {cursor: pointer;}
+
+.flexcontainer {
+  height: 100vh;
+  display: flex;
+}
+
+.flexinner {
+  margin: auto;
+}
