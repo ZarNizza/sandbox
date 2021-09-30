@@ -14,6 +14,7 @@ return (
     <>
     <h2>Counter = {count} </h2>
     <button onClick = {()=>{dispatch({type:"plus"})}} > + </button>
+    <button onClick = {()=>{dispatch({type:"zero"})}} > 0 </button>
     <button onClick = {()=>{dispatch({type:"minus"})}} > - </button>
     </>
 )
@@ -23,6 +24,7 @@ function reduser(state, action) {
 switch (action.type) {
     case "plus": return {...state, count: state.count +1};
     case "minus": return {...state, count: state.count -1};
+    case "zero": return {...state, count: 0};
     default: return {state}
 }
 }
