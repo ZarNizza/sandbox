@@ -8,7 +8,7 @@ import "./index.css";
 // import { FunctionUseState, ClassThisState } from "./UseEffectTest";
 //import {UseReducerTest, UseReducerTest2} from "./UseReducerTest";
 //import { UseReduserCounter } from "./UseReduserCounter";
-import { ABC } from "./ABC";
+import { RunCalc } from "./ABC";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,7 +21,7 @@ ReactDOM.render(
         {/* <FunctionUseState /><ClassThisState /> */}
         {/* <UseReducerTest /><UseReducerTest2 /> */}
         {/* <UseReduserCounter /> */}
-        <ABC />
+        <RunCalc />
       </div>
     </div>
   </React.StrictMode>,
