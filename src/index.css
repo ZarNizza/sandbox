@@ -28,3 +28,8 @@ button:hover, a:hover {cursor: pointer;}
 .flexinner {
   margin: auto;
 }
+
+.runCalc input {
+  width:70px;
+  text-align: right;
+}
