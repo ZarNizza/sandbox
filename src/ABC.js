@@ -109,10 +109,9 @@ function rCalc(state, action) {
 
 function time(kSpeed, dist) {
   return isFinite(Math.round((dist * 600) / kSpeed) / 10)
-  ? Math.round((dist * 600) / kSpeed) / 10
-  : 0;
+    ? Math.round((dist * 600) / kSpeed) / 10
+    : 0;
 }
-
 
 function mSpeed(kSpeed) {
   return isFinite(Math.round((kSpeed * 100) / 36) / 10)
