@@ -98,8 +98,9 @@ export function RunCalc() {
   });
 
   return (
-    <table className="runCalc">
-<caption>- Run Calc -</caption>
+    <table className="runCalc" >
+      <caption>- Run Calc -</caption>
+      <tbody>
       <tr>
         <td>м/с: </td>
         <td>
@@ -142,7 +143,7 @@ export function RunCalc() {
           />{" "}
         </td>
       </tr>
-      <br />
+      <tr><td> </td></tr>
       <tr>
         <td>каденс: </td>
         <td>
@@ -171,6 +172,7 @@ export function RunCalc() {
           />{" "}
         </td>
       </tr>
+      </tbody>
     </table>
   );
 }

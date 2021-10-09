@@ -29,7 +29,20 @@ button:hover, a:hover {cursor: pointer;}
   margin: auto;
 }
 
+.runCalc {
+padding: 8px;
+border: 1px solid blueviolet;
+}
+
+.runCalc tr, td {
+  border: none;
+}
 .runCalc input {
   width:70px;
   text-align: right;
+}
+
+.runCalc caption {
+  color: white;
+  background-color: blueviolet;
 }
