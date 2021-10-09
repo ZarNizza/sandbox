@@ -5,33 +5,34 @@ import { useReducer} from "react";
 function rCalc(state, action) {
     switch (action.type) {
         case "mSpeed": {
-            const kSpeed = isFinite(Math.round(action.value *3600/10)/100) ? Math.round(action.value *3600/10)/100 : 0;
-            const pace = isFinite(Math.round(6000/kSpeed)/100) ? Math.round(6000/kSpeed)/100 : 0;
-            const strLength = isFinite(Math.round(kSpeed*100000/(state.cadense*60))/100) ? Math.round(kSpeed*100000/(state.cadense*60))/100 : 0;
-            return {...state, mSpeed:action.value, kSpeed:kSpeed, pace:pace, strLength:strLength, };}
+            const kSpeed = isFinite(Math.round(action.value *360/10)/10) ? Math.round(action.value *360/10)/10 : 0;
+            return {...state, mSpeed:action.value, kSpeed:kSpeed, pace:pace(kSpeed), strLength:strLength(kSpeed, state.cadense), };}
         case "kSpeed": {
-            const mSpeed = isFinite(Math.round(action.value *100/36)/10) ? Math.round(action.value *100/36)/10 : 0;
-            const pace = isFinite(Math.round(600/action.value)/10) ? Math.round(600/action.value)/10 : 0;
-            const strLength = isFinite(Math.round(action.value*10000/(state.cadense*60))/10) ? Math.round(action.value*10000/(state.cadense*60))/10 : 0;
-            return {...state, mSpeed:mSpeed, kSpeed:action.value, pace:pace, strLength:strLength, };}
+            return {...state, mSpeed:mSpeed(action.value), kSpeed:action.value, pace:pace(action.value), strLength:strLength(action.value, state.cadense), };}
         case "pace": {
             const kSpeed = isFinite(Math.round(600/action.value)/10) ? Math.round(600/action.value)/10 : 0;
-            const mSpeed = isFinite(Math.round(kSpeed *100/36)/10) ? Math.round(kSpeed *100/36)/10 : 0;
-            const strLength = isFinite(Math.round(kSpeed*10000/(state.cadense*60))/10) ? Math.round(kSpeed*10000/(state.cadense*60))/10 : 0;
-            return {...state, mSpeed:mSpeed, kSpeed:kSpeed, pace:action.value, strLength:strLength, };}
+            return {...state, mSpeed:mSpeed(kSpeed), kSpeed:kSpeed, pace:action.value, strLength:strLength(kSpeed, state.cadense), };}
         case "cadense": {
             const kSpeed = isFinite(Math.round(action.value * state.strLength *6/10)/10) ? Math.round(action.value * state.strLength *6/10)/10 : 0;
-            const mSpeed = isFinite(Math.round(kSpeed *100/36)/10) ? Math.round(kSpeed *100/36)/10 : 0;
-            const pace = isFinite(Math.round(600/kSpeed)/10) ? Math.round(600/kSpeed)/10 : 0;
-            return {...state, mSpeed:mSpeed, kSpeed:kSpeed, pace:pace , cadense:action.value, };}
+            return {...state, mSpeed:mSpeed(kSpeed), kSpeed:kSpeed, pace:pace(kSpeed) , cadense:action.value, };}
         case "strLength": {
             const kSpeed = isFinite(Math.round(action.value * state.cadense *6/10)/10) ? Math.round(action.value * state.cadense *6/10)/10 : 0;
-            const mSpeed = isFinite(Math.round(kSpeed *100/36)/10) ? Math.round(kSpeed *100/36)/10 : 0;
-            const pace = isFinite(Math.round(600/kSpeed)/10) ? Math.round(600/kSpeed)/10 : 0;
-            return {...state, mSpeed:mSpeed, kSpeed:kSpeed, pace:pace , strLength:action.value, };}
+            return {...state, mSpeed:mSpeed(kSpeed), kSpeed:kSpeed, pace:pace(kSpeed) , strLength:action.value, };}
         default: return {state}
     }
     }
+
+function mSpeed(kSpeed) {
+    return isFinite(Math.round(kSpeed *100/36)/10) ? Math.round(kSpeed *100/36)/10 : 0;
+}
+
+function pace(kSpeed) {
+    return isFinite(Math.round(600/kSpeed)/10) ? Math.round(600/kSpeed)/10 : 0;
+}
+
+function strLength(kSpeed, cadense) {
+    return isFinite(Math.round(kSpeed*100000/(cadense*60))/100) ? Math.round(kSpeed*100000/(cadense*60))/100 : 0;
+}
 
 
 export function RunCalc() {
