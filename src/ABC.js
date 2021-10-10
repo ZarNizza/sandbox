@@ -1,8 +1,8 @@
 import { useReducer } from "react";
 
 // фикс Путь/Время, Каденс/ДлШага
-// навигация стрелками вверх/вниз
-// рефакторинг
+// OK - навигация стрелками вверх/вниз
+// рефакторинг  в стиле REACT
 
 function rCalc(state, action) {
   switch (action.type) {
@@ -133,7 +133,9 @@ function strLength(kSpeed, cadense) {
 
 function handleKeyPress(e) {
   const inputsArr = Array.from(document.getElementsByClassName("f"));
-  const focusIndex = inputsArr.findIndex((item) => item.id === document.querySelector(":focus").id );
+  const focusIndex = inputsArr.findIndex(
+    (item) => item.id === document.querySelector(":focus").id
+  );
   const prevIndex = focusIndex - 1 < 0 ? inputsArr.length - 1 : focusIndex - 1;
   const nextIndex = focusIndex + 1 === inputsArr.length ? 0 : focusIndex + 1;
   switch (e.key) {
@@ -166,7 +168,12 @@ export function RunCalc() {
       <caption>- Run Calc -</caption>
       <tbody>
         <tr>
-          <td>путь: *</td>
+          <td>
+            <input type="radio" name="distTime" id="rD" value="dist" defaultChecked />
+          </td>
+          <td>
+            <label htmlFor="rD">путь: </label>
+          </td>
           <td>
             <input
               id="distance"
@@ -176,7 +183,6 @@ export function RunCalc() {
                 dispatch({ type: "dist", value: event.target.value });
               }}
               onKeyDown={handleKeyPress}
-              tabIndex="1"
               type="text"
               maxLength="4"
             />{" "}
@@ -184,7 +190,12 @@ export function RunCalc() {
           <td>км</td>
         </tr>
         <tr>
-          <td>время: </td>
+          <td>
+            <input type="radio" name="distTime" id="rT" value="time" />
+          </td>
+          <td>
+            <label htmlFor="rT">время: </label>
+          </td>
           <td>
             <input
               id="time"
@@ -194,7 +205,6 @@ export function RunCalc() {
                 dispatch({ type: "time", value: event.target.value });
               }}
               onKeyDown={handleKeyPress}
-              tabIndex="2"
               type="text"
               maxLength="4"
             />{" "}
@@ -205,6 +215,7 @@ export function RunCalc() {
           <td> </td>
         </tr>
         <tr>
+          <td> </td>
           <td>м/с: </td>
           <td>
             <input
@@ -215,7 +226,6 @@ export function RunCalc() {
                 dispatch({ type: "mSpeed", value: event.target.value });
               }}
               onKeyDown={handleKeyPress}
-              tabIndex="3"
               type="text"
               maxLength="4"
             />{" "}
@@ -223,6 +233,7 @@ export function RunCalc() {
           <td>м/с</td>
         </tr>
         <tr>
+          <td> </td>
           <td>км/ч: </td>
           <td>
             <input
@@ -233,7 +244,6 @@ export function RunCalc() {
                 dispatch({ type: "kSpeed", value: event.target.value });
               }}
               onKeyDown={handleKeyPress}
-              tabIndex="4"
               type="text"
               maxLength="4"
             />{" "}
@@ -241,6 +251,7 @@ export function RunCalc() {
           <td>км/ч</td>
         </tr>
         <tr>
+          <td> </td>
           <td>темп: </td>
           <td>
             <input
@@ -251,7 +262,6 @@ export function RunCalc() {
                 dispatch({ type: "pace", value: event.target.value });
               }}
               onKeyDown={handleKeyPress}
-              tabIndex="5"
               type="text"
               maxLength="4"
             />{" "}
@@ -262,7 +272,12 @@ export function RunCalc() {
           <td> </td>
         </tr>
         <tr>
-          <td>каденс: *</td>
+          <td>
+            <input type="radio" name="step" id="rC" value="cadense" defaultChecked />
+          </td>
+          <td>
+            <label htmlFor="rC">каденс: </label>
+          </td>
           <td>
             <input
               id="cadense"
@@ -272,7 +287,6 @@ export function RunCalc() {
                 dispatch({ type: "cadense", value: event.target.value });
               }}
               onKeyDown={handleKeyPress}
-              tabIndex="6"
               type="text"
               maxLength="4"
             />{" "}
@@ -280,7 +294,12 @@ export function RunCalc() {
           <td>шаг/мин</td>
         </tr>
         <tr>
-          <td>длШага: </td>
+          <td>
+            <input type="radio" name="step" id="rS" value="strLength" />
+          </td>
+          <td>
+            <label htmlFor="rS">длШага: </label>
+          </td>
           <td>
             <input
               id="strLength"
@@ -290,7 +309,6 @@ export function RunCalc() {
                 dispatch({ type: "strLength", value: event.target.value });
               }}
               onKeyDown={handleKeyPress}
-              tabIndex="7"
               type="text"
               maxLength="4"
             />{" "}
