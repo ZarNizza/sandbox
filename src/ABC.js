@@ -131,6 +131,25 @@ function strLength(kSpeed, cadense) {
     : 0;
 }
 
+function handleKeyPress(e) {
+  const inputsArr = Array.from(document.getElementsByClassName("f"));
+  const focusIndex = inputsArr.findIndex((item) => item.id === document.querySelector(":focus").id );
+  const prevIndex = focusIndex - 1 < 0 ? inputsArr.length - 1 : focusIndex - 1;
+  const nextIndex = focusIndex + 1 === inputsArr.length ? 0 : focusIndex + 1;
+  switch (e.key) {
+    case "ArrowUp": {
+      document.getElementById(inputsArr[prevIndex].id).focus();
+      return;
+    }
+    case "ArrowDown": {
+      document.getElementById(inputsArr[nextIndex].id).focus();
+      return;
+    }
+    default: {
+    }
+  }
+}
+
 export function RunCalc() {
   const [state, dispatch] = useReducer(rCalc, {
     value: 0,
@@ -142,7 +161,6 @@ export function RunCalc() {
     cadense: 167,
     strLength: 1,
   });
-
   return (
     <table className="runCalc">
       <caption>- Run Calc -</caption>
@@ -152,12 +170,15 @@ export function RunCalc() {
           <td>
             <input
               id="distance"
+              className="f"
               value={state.dist}
               onChange={(event) => {
                 dispatch({ type: "dist", value: event.target.value });
               }}
+              onKeyDown={handleKeyPress}
+              tabIndex="1"
               type="text"
-              maxlength="4"
+              maxLength="4"
             />{" "}
           </td>
           <td>км</td>
@@ -167,12 +188,15 @@ export function RunCalc() {
           <td>
             <input
               id="time"
+              className="f"
               value={state.time}
               onChange={(event) => {
                 dispatch({ type: "time", value: event.target.value });
               }}
+              onKeyDown={handleKeyPress}
+              tabIndex="2"
               type="text"
-              maxlength="4"
+              maxLength="4"
             />{" "}
           </td>
           <td>мин</td>
@@ -185,12 +209,15 @@ export function RunCalc() {
           <td>
             <input
               id="mSpeed"
+              className="f"
               value={state.mSpeed}
               onChange={(event) => {
                 dispatch({ type: "mSpeed", value: event.target.value });
               }}
+              onKeyDown={handleKeyPress}
+              tabIndex="3"
               type="text"
-              maxlength="4"
+              maxLength="4"
             />{" "}
           </td>
           <td>м/с</td>
@@ -200,12 +227,15 @@ export function RunCalc() {
           <td>
             <input
               id="kSpeed"
+              className="f"
               value={state.kSpeed}
               onChange={(event) => {
                 dispatch({ type: "kSpeed", value: event.target.value });
               }}
+              onKeyDown={handleKeyPress}
+              tabIndex="4"
               type="text"
-              maxlength="4"
+              maxLength="4"
             />{" "}
           </td>
           <td>км/ч</td>
@@ -215,12 +245,15 @@ export function RunCalc() {
           <td>
             <input
               id="pace"
+              className="f"
               value={state.pace}
               onChange={(event) => {
                 dispatch({ type: "pace", value: event.target.value });
               }}
+              onKeyDown={handleKeyPress}
+              tabIndex="5"
               type="text"
-              maxlength="4"
+              maxLength="4"
             />{" "}
           </td>
           <td>мин/км</td>
@@ -233,12 +266,15 @@ export function RunCalc() {
           <td>
             <input
               id="cadense"
+              className="f"
               value={state.cadense}
               onChange={(event) => {
                 dispatch({ type: "cadense", value: event.target.value });
               }}
+              onKeyDown={handleKeyPress}
+              tabIndex="6"
               type="text"
-              maxlength="4"
+              maxLength="4"
             />{" "}
           </td>
           <td>шаг/мин</td>
@@ -248,12 +284,15 @@ export function RunCalc() {
           <td>
             <input
               id="strLength"
+              className="f"
               value={state.strLength}
               onChange={(event) => {
                 dispatch({ type: "strLength", value: event.target.value });
               }}
+              onKeyDown={handleKeyPress}
+              tabIndex="7"
               type="text"
-              maxlength="4"
+              maxLength="4"
             />{" "}
           </td>
           <td>м</td>
