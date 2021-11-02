@@ -13,12 +13,23 @@ code {
 }
 
 button {
+  border: 1px solid blueviolet;
+  border-radius: 5px;
   min-width: 70px;
   min-height: 30px;
   margin: 10px;
 }
 
 button:hover, a:hover {cursor: pointer;}
+
+input {
+  border: 1px solid blueviolet;
+  border-radius: 5px;
+  min-width: 300px;
+  min-height: 50px;
+  margin: 10px;
+  padding: 10px;
+}
 
 .flexcontainer {
   height: 100vh;
@@ -45,4 +56,11 @@ border: 1px solid blueviolet;
 .runCalc caption {
   color: white;
   background-color: blueviolet;
+}
+
+.b {
+  color: blue;
+}
+.g {
+  color:green;
 }
