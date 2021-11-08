@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { SandBox } from "./SandBox";
+import { SandBox2 } from "./SandBox2";
 // import {App} from './App';
 // import {GitPromise} from './GitPromise';
 // import { UseRefTest } from './UseRefTest';
@@ -15,7 +15,7 @@ ReactDOM.render(
   <React.StrictMode>
     <div className="flexcontainer">
       <div className="flexinner">
-        <SandBox />
+        <SandBox2 />
         {/* <App /> */}
         {/* <GitPromise /> */}
         {/* <UseRefTest /> */}
